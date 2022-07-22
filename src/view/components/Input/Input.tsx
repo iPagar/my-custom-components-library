@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   BaseContainer,
   BaseInput,
@@ -6,9 +6,9 @@ import {
   BaseSubtitle,
   BaseTextarea,
   BaseTitle,
-} from '@base/index';
-import styles from './Input.module.scss';
-import { LinkToViewCode } from '@nav/index';
+} from "@base/index";
+import styles from "./Input.module.scss";
+import { LinkToViewCode } from "@nav/index";
 
 interface Props {}
 
@@ -26,19 +26,19 @@ interface IValue {
 
 const Input: React.FC<Props> = () => {
   const [value, setValue] = React.useState<IValue>({
-    text1: '',
-    text2: '',
-    text3: '',
-    password: '',
-    text4: '',
-    user: '',
-    textarea1: '',
-    textarea2: '',
+    text1: "",
+    text2: "",
+    text3: "",
+    password: "",
+    text4: "",
+    user: "",
+    textarea1: "",
+    textarea2: "",
     number: 9,
   });
 
   React.useEffect(() => {
-    console.log('outside value: ', value.number);
+    console.log("outside value: ", value.number);
   }, [value]);
 
   const setNewValue = (val: string | number, key: string) => {
@@ -62,7 +62,7 @@ const Input: React.FC<Props> = () => {
             placeholder="Basic usage"
             type="text"
             value={value.text1}
-            onChange={(val: string) => setNewValue(val, 'text1')}
+            onChange={(val: string) => setNewValue(val, "text1")}
             className="Mb20 mw300"
           />
 
@@ -72,7 +72,7 @@ const Input: React.FC<Props> = () => {
             placeholder="Basic usage"
             type="text"
             value={value.text2}
-            onChange={(val: string) => setNewValue(val, 'text2')}
+            onChange={(val: string) => setNewValue(val, "text2")}
             className="Mb20 mw300"
           />
 
@@ -83,7 +83,7 @@ const Input: React.FC<Props> = () => {
             placeholder="Basic usage"
             type="text"
             value={value.text3}
-            onChange={(val: string) => setNewValue(val, 'text3')}
+            onChange={(val: string) => setNewValue(val, "text3")}
             className="Mb20 mw300"
           />
 
@@ -94,7 +94,7 @@ const Input: React.FC<Props> = () => {
             type="password"
             icon="eye-off"
             value={value.password}
-            onChange={(val: string) => setNewValue(val, 'password')}
+            onChange={(val: string) => setNewValue(val, "password")}
             className="Mb20 mw300"
           />
 
@@ -106,7 +106,7 @@ const Input: React.FC<Props> = () => {
             icon="save"
             iconPosition="left"
             value={value.text4}
-            onChange={(val: string) => setNewValue(val, 'text4')}
+            onChange={(val: string) => setNewValue(val, "text4")}
             className="Mb20 mw300"
           />
 
@@ -118,7 +118,7 @@ const Input: React.FC<Props> = () => {
             icon="user"
             iconPosition="right"
             value={value.user}
-            onChange={(val: string) => setNewValue(val, 'user')}
+            onChange={(val: string) => setNewValue(val, "user")}
             className="Mb20 mw300"
           />
         </BaseContainer>
@@ -135,9 +135,18 @@ const Input: React.FC<Props> = () => {
             label="Input number"
             placeholder="Input number"
             value={value.number}
-            onChange={(val: number) => setNewValue(val, 'number')}
+            onChange={(val: string) => setNewValue(val, "number")}
             className="mw300"
-            formatter={`$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            formatter={(value) => {
+              return value
+                .toString()
+                .slice(0, 15)
+                .replace(/\D/g, "")
+                .replace(/(\d{3})(\d)/, "($1) $2")
+                .replace(/(\d{3})(\d)/, "$1-$2")
+                .replace(/(\d{2})(\d{2})/, "$1-$2");
+            }}
+            max={10}
           />
         </BaseContainer>
       </div>
@@ -157,7 +166,7 @@ const Input: React.FC<Props> = () => {
             className="mw400"
             placeholder="Some text"
             value={value.textarea1}
-            onChange={(val: string) => setNewValue(val, 'textarea1')}
+            onChange={(val: string) => setNewValue(val, "textarea1")}
           />
         </BaseContainer>
         <BaseContainer>
@@ -169,7 +178,7 @@ const Input: React.FC<Props> = () => {
             maxLength={100}
             label="Label for textarea with counter"
             value={value.textarea2}
-            onChange={(val: string) => setNewValue(val, 'textarea2')}
+            onChange={(val: string) => setNewValue(val, "textarea2")}
           />
         </BaseContainer>
       </div>
